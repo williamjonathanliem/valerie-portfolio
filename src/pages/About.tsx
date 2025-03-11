@@ -4,6 +4,14 @@ import { useInView } from 'react-intersection-observer';
 import { Palette, Camera, Brush, Award } from 'lucide-react';
 
 const About: React.FC = () => {
+  // Create refs for each timeline event outside of the mapping function
+  const timelineRefs = [
+    useInView({ triggerOnce: true, threshold: 0.1 }),
+    useInView({ triggerOnce: true, threshold: 0.1 }),
+    useInView({ triggerOnce: true, threshold: 0.1 }),
+    useInView({ triggerOnce: true, threshold: 0.1 })
+  ];
+
   const timelineEvents = [
     {
       year: '2023',
@@ -117,10 +125,7 @@ const About: React.FC = () => {
             {/* Timeline Events */}
             <div className="space-y-12">
               {timelineEvents.map((event, index) => {
-                const [ref, inView] = useInView({
-                  triggerOnce: true,
-                  threshold: 0.1,
-                });
+                const [ref, inView] = timelineRefs[index];
 
                 return (
                   <motion.div
@@ -201,4 +206,4 @@ const About: React.FC = () => {
   );
 };
 
-export default About; 
+export default About;
